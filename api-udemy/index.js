@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 const port = 8000
-
+app.use(express.json())
 app.get('/', (req, res) => {
   res.send('Hello World')
 })
@@ -23,10 +23,16 @@ app.get('/api/customers', (req, res) => {
 })
 
 app.post('/api/customers', (req, res) => {
-  const custormer = {
+  const customer = {
     title: req.body.title,
     id: customers.length + 1,
   }
-  customers.push(custormer);
-  res.send(customers);
+  customers.push(customer);
+  res.send(customer);
+})
+
+app.put('/api/customers/:id', (req, res) => {
+  const customer = customers.find((c) => c.id === parseInt(req.params.id));
+  customer.title = req.body.title;
+  res.send(customer);
 })
