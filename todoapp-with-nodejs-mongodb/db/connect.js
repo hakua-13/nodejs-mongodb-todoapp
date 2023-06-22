@@ -6,4 +6,13 @@ const connectDB = (url) => {
   .catch((error) => console.log(error));
 };
 
+// const connectDB = async(url) => {
+//   try{
+//     await mongoose.connect(url);
+//     console.log('データベース接続...')
+//   }catch(error){
+//     console.log(error);
+//   }
+// }
+
 module.exports = connectDB;
