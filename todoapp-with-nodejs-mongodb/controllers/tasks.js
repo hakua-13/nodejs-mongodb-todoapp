@@ -45,8 +45,16 @@ const updateTask = async(req, res) => {
     res.status(500).json(error);
   }
 }
-const deleteTask = (req, res) => {
-  res.send("指定したタスクの削除");
+const deleteTask = async(req, res) => {
+  try{
+    const deleteTask = await Task.findByIdAndDelete(req.params.id);
+    if(!deleteTask){
+      res.status(404).json(`_id: ${req.params.id} は存在しません`);
+    }
+    res.status(200).json(deleteTask);
+  }catch(error){
+    res.status(500).json(error);
+  }
 }
 
 module.exports = {
