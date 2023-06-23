@@ -29,8 +29,21 @@ const getSingleTask = async(req, res) => {
     res.status(500).json(error);
   }
 }
-const updateTask = (req, res) => {
-  res.send("指定したタスクの更新");
+const updateTask = async(req, res) => {
+  try{
+    const updateTask = await Task.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      {returnDocument: 'after'}
+    );
+    if(!updateTask){
+      res.status(404).json(`_id: ${req.params.id} は存在しません`);
+      return;
+    }
+    res.status(200).json(updateTask);
+  }catch(error){
+    res.status(500).json(error);
+  }
 }
 const deleteTask = (req, res) => {
   res.send("指定したタスクの削除");
