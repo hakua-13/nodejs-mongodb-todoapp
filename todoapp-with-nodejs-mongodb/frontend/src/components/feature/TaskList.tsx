@@ -3,10 +3,18 @@ import { AiOutlineDelete, AiOutlineEdit, AiOutlineCheckCircle } from 'react-icon
 
 import { Task } from '../../domain/Type';
 import { TaskEditModal } from "./TaskEditModal";
+import axios from "axios";
 
 type Props = {
   tasks: Task[],
   setTasks: React.Dispatch<React.SetStateAction<Task[]>>
+}
+
+type RawTask = {
+  name: string,
+  completed: boolean,
+  _id: string,
+  __v: number
 }
 
 export const TaskList:FC<Props> = ({tasks, setTasks}) => {
@@ -14,7 +22,13 @@ export const TaskList:FC<Props> = ({tasks, setTasks}) => {
 
   useEffect(() => {
     const getAllTask = async() => {
-      console.log('getAllTask')
+      const { data:rawAllTask } = await axios.get<RawTask[]>("/api/v1/tasks");
+      const allTasks:Task[]  = rawAllTask.map(task => ({
+        id: task._id,
+        name: task.name,
+        completed: task.completed,
+      }))
+      setTasks(allTasks);
     }
 
     getAllTask();
@@ -24,15 +38,15 @@ export const TaskList:FC<Props> = ({tasks, setTasks}) => {
     setShowModal(true);
   }
 
-  const deleteTask = async(id: number) => {
+  const deleteTask = async(id: string) => {
 
   }
 
   return(
     <div>
       {tasks.length > 0? (
-        tasks.map(task => (
-          <div className="grid grid-cols-10 max-w-4xl mx-auto mt-5 p-3 items-center bg-white">
+        tasks.map((task) => (
+          <div key={task.id} className="grid grid-cols-10 max-w-4xl mx-auto mt-5 p-3 items-center bg-white">
             <div className="mx-auto p-p">
               <AiOutlineCheckCircle className={`${!task.completed && "hidden"} text-xl text-green-600`}/>
             </div>
