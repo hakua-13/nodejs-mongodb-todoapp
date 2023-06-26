@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useState } from "react";
 
 export const TaskForm = () => {
@@ -7,7 +8,11 @@ export const TaskForm = () => {
     setNewTask(e.target.value);
   }
 
-  const createNewTask =(e:any) => {
+  const createNewTask = async() => {
+    axios.post('/api/v1/tasks/',{
+      name: newTask,
+      completed: false
+    })
     setNewTask('');
   }
 
