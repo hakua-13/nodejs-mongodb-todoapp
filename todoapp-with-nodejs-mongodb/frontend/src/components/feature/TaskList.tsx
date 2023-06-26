@@ -39,7 +39,17 @@ export const TaskList:FC<Props> = ({tasks, setTasks}) => {
   }
 
   const deleteTask = async(id: string) => {
-
+    const res = await axios.delete(`/api/v1/tasks/${id}`);
+    if(res.status == 200){
+      const newTasks = tasks.filter(task => {
+        if(task.id === id){
+          return false;
+        }else{
+          return true;
+        }
+      })
+      setTasks(newTasks);
+    }
   }
 
   return(
