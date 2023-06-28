@@ -1,11 +1,11 @@
 import { useState } from 'react';
 
 import { TaskList } from './components/feature/TaskList';
-import { Task } from './domain/Type';
+import { TaskType } from './domain/Type';
 import { TaskForm } from './components/feature/TaskForm';
 
 function App() {
-  const [ tasks, setTasks ] = useState<Task[]>([]);
+  const [ tasks, setTasks ] = useState<TaskType[]>([]);
 
   return (
       <div>
