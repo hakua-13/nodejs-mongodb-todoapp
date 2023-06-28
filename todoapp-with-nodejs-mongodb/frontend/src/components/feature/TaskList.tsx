@@ -38,7 +38,7 @@ export const TaskList:FC<Props> = ({tasks, setTasks}) => {
       {tasks.length > 0? (
         tasks.map((task) => (
           
-          <Task task={task} tasks={tasks} setTasks={setTasks}/>
+          <Task key={task.id} task={task} tasks={tasks} setTasks={setTasks}/>
         ))
       ):(
         <h1>タスクなし</h1>

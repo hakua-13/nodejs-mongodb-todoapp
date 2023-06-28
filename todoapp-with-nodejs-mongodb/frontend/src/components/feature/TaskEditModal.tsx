@@ -1,6 +1,7 @@
 import { FC, useEffect, useState } from 'react';
 import { AiOutlineClose } from 'react-icons/ai';
 import { TaskType } from '../../domain/Type';
+import axios from 'axios';
 
 type Props = {
   showModal: boolean,
@@ -32,9 +33,20 @@ export const TaskEditModal:FC<Props> = ({ showModal, setShowModal, task, id}) =>
     setTaskCompleted(preVal => !preVal);
   }
 
-  const editTask = () => {
-    task.name = taskNewName;
-    task.completed = taskCompleted;
+  const editTask = async() => {
+    try{
+      const res = await axios.patch(`/api/v1/tasks/${id}`, {
+        name: taskNewName,
+        completed: taskCompleted
+      });
+
+      if(res.status === 200){
+        task.name = taskNewName;
+        task.completed = taskCompleted;
+      }
+    }catch(error){
+      console.log(error);
+    }
   }
 
   if(showModal){
