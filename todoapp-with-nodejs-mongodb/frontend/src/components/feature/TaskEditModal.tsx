@@ -6,10 +6,8 @@ import axios from 'axios';
 type Props = {
   showModal: boolean,
   setShowModal: React.Dispatch<React.SetStateAction<boolean>>,
-  tasks: TaskType[],
-  setTasks: React.Dispatch<React.SetStateAction<TaskType[]>>,
   task: TaskType,
-  id: string
+  id: string,
 }
 
 export const TaskEditModal:FC<Props> = ({ showModal, setShowModal, task, id}) =>  {
@@ -29,7 +27,6 @@ export const TaskEditModal:FC<Props> = ({ showModal, setShowModal, task, id}) =>
   }
 
   const onChangeTaskCompleted = (e:any) => {
-    // task.completed = !task.completed
     setTaskCompleted(preVal => !preVal);
   }
 
@@ -43,6 +40,7 @@ export const TaskEditModal:FC<Props> = ({ showModal, setShowModal, task, id}) =>
       if(res.status === 200){
         task.name = taskNewName;
         task.completed = taskCompleted;
+        console.log('hello');
       }
     }catch(error){
       console.log(error);

@@ -8,10 +8,10 @@ import { FC, useState } from "react";
 type Props = {
   task: TaskType,
   tasks: TaskType[],
-  setTasks: React.Dispatch<React.SetStateAction<TaskType[]>>
+  setTasks: React.Dispatch<React.SetStateAction<TaskType[]>>,
 }
 
-export const Task:FC<Props> = ({ task, tasks, setTasks }) => {
+export const Task:FC<Props> = ({ task, tasks, setTasks}) => {
   const [ showModal, setShowModal ] = useState(false);
 
   const editTask = async() => {
@@ -41,7 +41,7 @@ export const Task:FC<Props> = ({ task, tasks, setTasks }) => {
       <button className="mx-auto p-2 hover:bg-slate-100" onClick={editTask}>
         <AiOutlineEdit className="text-xl"/>
       </button>
-      <TaskEditModal showModal={showModal} setShowModal={setShowModal} tasks={tasks} setTasks={setTasks} task={task} id={task.id}/>
+      <TaskEditModal showModal={showModal} setShowModal={setShowModal} task={task} id={task.id}/>
 
       <button className="mx-auto p-2 hover:bg-slate-100">
         <AiOutlineDelete className="text-red-600 text-xl" onClick={() => deleteTask(task.id)}/>
